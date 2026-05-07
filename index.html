@@ -3,89 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Minimal Bank</title>
+    <title>Modern Bank</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #000000;
-            --card-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            --accent-cyan: #00f2ff;
-            --text-secondary: #94a3b8;
-        }
+        /* RESET TOTALE PER EVITARE BUG */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #000; color: white; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        /* HEADER */
+        .header { padding: 50px 20px; text-align: center; }
+        .balance-label { color: #888; font-size: 14px; text-transform: uppercase; }
+        .balance-val { font-size: 45px; font-weight: bold; margin: 10px 0; }
 
-        body {
-            background-color: var(--bg-color);
-            color: white;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Header */
-        .header { padding: 60px 20px 30px; text-align: center; }
-        .label { color: var(--text-secondary); font-size: 14px; letter-spacing: 1px; }
-        .balance { font-size: 44px; font-weight: 700; margin: 8px 0; }
-
-        /* Main */
-        .container { flex: 1; padding: 0 25px; display: flex; flex-direction: column; align-items: center; }
-
-        /* LA CARTA MODERNA E SEMPLICE */
+        /* CARTA MODERNA (STILE APPLE/REVOLUT) */
+        .container { flex: 1; padding: 0 20px; }
         .card {
             width: 100%;
-            max-width: 340px;
             aspect-ratio: 1.58 / 1;
-            background: var(--card-gradient);
-            border-radius: 20px;
+            background: linear-gradient(135deg, #222, #000); /* Semplice e scura */
+            border-radius: 18px;
             padding: 25px;
-            position: relative;
+            border: 1px solid #333;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Logo Moderno (Semplice e Geometrico) */
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            background: var(--accent-cyan);
-            clip-path: polygon(50% 0%, 100% 100%, 0% 100%); /* Un triangolo pulito */
-            opacity: 0.9;
+        /* LOGO SEMPLICE */
+        .logo { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #00f2ff; }
+        .logo-circle { width: 20px; height: 20px; background: #00f2ff; border-radius: 4px; }
+
+        .card-num { font-size: 20px; letter-spacing: 2px; color: #eee; }
+        .card-name { font-size: 14px; color: #888; text-transform: uppercase; }
+
+        /* TASTI */
+        .actions { display: flex; justify-content: center; gap: 40px; padding: 40px 0; }
+        .btn { text-align: center; color: #888; text-decoration: none; }
+        .icon { 
+            width: 60px; height: 60px; border-radius: 50%; background: #111; 
+            display: flex; align-items: center; justify-content: center; 
+            border: 1px solid #222; color: #00f2ff; font-size: 20px; margin-bottom: 8px;
         }
 
-        .card-number {
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: white;
-            opacity: 0.9;
-            font-family: 'Courier New', monospace;
-        }
+        /* NAV */
+        nav { background: #080808; display: flex; justify-content: space-around; padding: 20px 0 40px; border-top: 1px solid #111; }
+        nav i { font-size: 20px; color: #444; }
+        nav i.active { color: #00f2ff; }
+    </style>
+</head>
+<body>
 
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        .holder { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); }
-        .expiry { font-size: 12px; color: white; }
+    <div class="header">
+        <p class="balance-label">Saldo disponibile</p>
+        <p class="balance-val" id="saldo-txt">€ 0,00</p>
+    </div>
 
-        /* Bottoni */
-        .actions {
-            display: flex;
-            gap: 50px;
-            margin-top: 50px;
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <span>MODERN</span>
+            </div>
+            <div class="card-num">•••• •••• •••• 1055</div>
+            <div class="card-name">Leonardo Soru</div>
+        </div>
+
+        <div class="actions">
+            <div class="btn" onclick="add()">
+                <div class="icon"><i class="fa-solid fa-plus"></i></div>
+                <span>Aggiungi</span>
+            </div>
+            <div class="btn" onclick="sub()">
+                <div class="icon"><i class="fa-solid fa-minus"></i></div>
+                <span>Invia</span>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <i class="fa-solid fa-house active"></i>
+        <i class="fa-solid fa-wallet"></i>
+        <i class="fa-solid fa-gear"></i>
+    </nav>
+
+    <script>
+        let cash = 0;
+        function add() {
+            cash += 10;
+            document.getElementById('saldo-txt').innerText = "€ " + cash.toFixed(2).replace('.', ',');
         }
-        .btn-group { text-align: center; cursor: pointer; }
-        .icon-circle {
-            width: 60px;
-            height: 60
+        function sub() {
+            if(cash >= 10) cash -= 10;
+            document.getElementById('saldo-txt').innerText = "€ " + cash.toFixed(2).replace('.', ',');
+        }
+    </script>
+</body>
+</html>
