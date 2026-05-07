@@ -3,117 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>My Bank App</title>
+    <title>Cyber Card App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #050505;
-            --gold: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --card-gradient: linear-gradient(135deg, #1a1c2c 0%, #0a0b10 100%);
-            --text-dim: #94a3b8;
+            --bg-color: #08080a;
+            --neon-cyan: #00f2ff;
+            --neon-purple: #bd00ff;
+            --card-base: #11141d;
+            --text-dim: #64748b;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0;
-            padding: 0;
             background-color: var(--bg-color);
             color: white;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
 
-        /* Header */
-        .header {
-            padding: 40px 20px 20px;
-            text-align: center;
-        }
+        /* Saldo */
+        .header { padding: 40px 20px; text-align: center; }
+        .balance-label { color: var(--text-dim); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+        .balance-amount { font-size: 44px; font-weight: 800; margin: 10px 0; }
 
-        .total-balance-label { color: var(--text-dim); font-size: 14px; letter-spacing: 1px; }
-        .balance-amount { font-size: 48px; font-weight: 700; margin: 10px 0; font-variant-numeric: tabular-nums; }
-        .show-balance { color: var(--text-dim); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* Contenitore Carta */
-        .content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .credit-card {
+        /* LA TESSERA MODERNA */
+        .cyber-card {
             width: 100%;
             max-width: 350px;
             aspect-ratio: 1.58 / 1;
-            background: var(--card-gradient);
-            border-radius: 24px;
-            padding: 25px;
+            background: var(--card-base);
+            border-radius: 20px;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,255,0.02);
+            padding: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             overflow: hidden;
+            /* Bordi luminosi parziali */
+            box-shadow: 
+                -2px -2px 15px rgba(0, 242, 255, 0.2), 
+                2px 2px 15px rgba(189, 0, 255, 0.2);
         }
 
-        /* Effetto luce sulla carta */
-        .credit-card::after {
-            content: '';
+        /* Effetto Linee Geometriche Sfondo */
+        .cyber-card::before {
+            content: "";
             position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-            transform: rotate(30deg);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(130deg, transparent 40%, rgba(0, 242, 255, 0.1) 41%, transparent 42%),
+                linear-gradient(210deg, transparent 50%, rgba(189, 0, 255, 0.1) 51%, transparent 52%);
+            z-index: 1;
+        }
+
+        /* Bordi Neon (Angoli colorati) */
+        .cyber-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 20px;
+            padding: 2px; /* Spessore bordo */
+            background: linear-gradient(135deg, var(--neon-cyan) 0%, transparent 40%, transparent 60%, var(--neon-purple) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .chip {
-            width: 45px;
-            height: 35px;
-            background: linear-gradient(135deg, #e2b04a, #9d7522);
-            border-radius: 6px;
+            width: 42px; height: 32px;
+            background: linear-gradient(135deg, #a0a0a0, #404040);
+            border-radius: 4px;
             position: relative;
-        }
-
-        .card-number {
-            font-size: 22px;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
             z-index: 2;
         }
 
-        .card-holder {
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.7);
+        .card-number {
+            font-size: 20px;
+            letter-spacing: 3px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .card-holder { font-size: 14px; letter-spacing: 1px; color: #eee; }
+        .card-valid { font-size: 12px; color: var(--text-dim); }
 
         /* Bottoni Rapidi */
-        .quick-actions {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .btn-circle {
-            width: 65px;
-            height: 65px;
+        .actions { display: flex; gap: 40px; margin-top: 40px; }
+        .action-circle {
+            width: 60px; height: 60px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: transparent;
-            transition: transform 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            background: #161b22;
+            border: 1px solid #30363d;
         }
+        .cyan-glow { color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: 0 0 10px rgba(0,242,255,0.2); }
+        .purple-glow { color: var(--neon-purple); border-color: var(--neon-purple); box-shadow: 0 0 10px rgba(189,0,255,0.2); }
 
-        .btn-circle:active { transform: scale(0.9); }
+        /* Bottom Nav */
+        nav {
+            margin-top: auto;
+            background: #0d1117;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0 30px;
+            border-top: 1px solid #30363d;
+        }
+        .nav-item { color: var(--text-dim); text-align: center; text-decoration: none; font-size: 10px; }
+        .nav-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+        .active { color: var(--neon-cyan); }
+    </style>
+</head>
+<body>
 
-        .boost { border: 2px solid #3b82f6; color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
-        .deduct { border: 2px solid #a855f7; color: #a855f7; box-shadow: 0
+    <header class="header">
+        <div class="balance-label">Saldo Totale</div>
+        <div class="balance-amount">€ 0.00</div>
+    </header>
+
+    <div class="content">
+        <div class="cyber-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div class="chip"></div>
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--neon-cyan); z-index: 2;"></i>
+            </div>
+            
+            <div class="card-number">4536 4777 7110 1055</div>
+            
+            <div class="card-footer">
+                <div>
+                    <div class="card-holder">LEONARDO SORU</div>
+                </div>
+                <div style="text-align: right;">
+                    <div class="card-valid">VALID THRU</div>
+                    <div style="font-size: 14px;">06/50</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <div style="text-align: center;">
+                <div class="action-circle cyan-glow"><i class="fas fa-plus"></i></div>
+                <p style="font-size: 12px; color: var(--text-dim);">Boost</p>
+            </div>
+            <div style="text-align: center;">
+                <div class="action-circle purple-glow"><i class="fas fa-minus"></i></div>
+                <p style="font-size: 12px; color: var(--text-dim);">Deduct</p>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#" class="nav-item active"><i class="fas fa-wallet"></i>Home</a>
+        <a href="#" class="nav-item"><i class="fas fa-chart-line"></i>Stats</a>
+        <a href="#" class="nav-item"><i class="fas fa-bell"></i>Alert</a>
+        <a href="#" class="nav-item"><i class="fas fa-user-gear"></i>Set</a>
+    </nav>
+
+</body>
+</html>
