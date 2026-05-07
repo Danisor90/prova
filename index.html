@@ -3,64 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cyber Card App</title>
+    <title>Cyber Bank</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-color: #08080a;
-            --neon-cyan: #00f2ff;
-            --neon-purple: #bd00ff;
-            --card-base: #11141d;
-            --text-dim: #64748b;
-        }
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    <div class="app-container">
+        <header class="header">
+            <span class="status-label">Saldo totale</span>
+            <h1 id="balance">€ 0.00</h1>
+            <div class="show-hide">
+                <i class="fa-regular fa-eye"></i> Mostra saldo
+            </div>
+        </header>
 
-        body {
-            margin: 0;
-            background-color: var(--bg-color);
-            color: white;
-            font-family: sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        <main class="content">
+            <div class="cyber-card">
+                <div class="card-glow-cyan"></div>
+                <div class="card-glow-purple"></div>
+                
+                <div class="card-top">
+                    <div class="chip"></div>
+                    <i class="fa-solid fa-bolt-lightning neon-icon"></i>
+                </div>
+                
+                <div class="card-mid">
+                    <span class="card-number">4536 4777 7110 1055</span>
+                </div>
+                
+                <div class="card-bottom">
+                    <div class="holder-info">
+                        <span class="label">TITOLARE</span>
+                        <span class="name">LEONARDO SORU</span>
+                    </div>
+                    <div class="expiry-info">
+                        <span class="label">SCADENZA</span>
+                        <span class="date">06/50</span>
+                    </div>
+                </div>
+            </div>
 
-        .header { padding: 40px 20px; text-align: center; }
-        .balance-label { color: var(--text-dim); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
-        .balance-amount { font-size: 44px; font-weight: 800; margin: 10px 0; }
+            <div class="action-grid">
+                <button class="action-btn cyan" id="btn-boost">
+                    <div class="icon-wrapper"><i class="fa-solid fa-plus"></i></div>
+                    <span>Boost</span>
+                </button>
+                <button class="action-btn purple" id="btn-deduct">
+                    <div class="icon-wrapper"><i class="fa-solid fa-minus"></i></div>
+                    <span>Deduct</span>
+                </button>
+            </div>
+        </main>
 
-        .content { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-chart-simple"></i><span>Stats</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-bell"></i><span>Alerts</span></a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-user-gear"></i><span>Menu</span></a>
+        </nav>
+    </div>
 
-        /* TESSERA AGGIORNATA - PIÙ COMPATIBILE */
-        .cyber-card {
-            width: 100%;
-            max-width: 350px;
-            aspect-ratio: 1.58 / 1;
-            background-color: var(--card-base);
-            /* Sfondo geometrico integrato */
-            background-image: 
-                linear-gradient(130deg, transparent 40%, rgba(0, 242, 255, 0.08) 41%, transparent 42%),
-                linear-gradient(210deg, transparent 50%, rgba(189, 0, 255, 0.08) 51%, transparent 52%);
-            border-radius: 20px;
-            position: relative;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            /* Bordi neon fatti con box-shadow per sicurezza */
-            box-shadow: 
-                inset 0 0 0 1px rgba(255,255,255,0.1),
-                -5px -5px 20px rgba(0, 242, 255, 0.15), 
-                5px 5px 20px rgba(189, 0, 255, 0.15);
-            overflow: hidden;
-        }
-
-        /* Angoli colorati (Neon) */
-        .corner-cyan {
-            position: absolute; top: 0; left: 0; width: 40%; height: 2px;
-            background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan);
-        }
-        .side-cyan {
-            position: absolute; top: 0; left: 0; width: 2px; height: 40%;
-            background: var(--neon-
+    <script src="script.js"></script>
+</body>
+</html>
