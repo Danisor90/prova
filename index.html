@@ -8,7 +8,7 @@
     <style>
         :root {
             --bg: #000000;
-            --card-color: #1e2748; /* Il tuo nuovo colore */
+            --card-color: #1e2748;
             --accent: #00f2ff;
             --text-dim: #666;
         }
@@ -25,33 +25,19 @@
             overflow: hidden;
         }
 
-        /* BRAND & LOGO SECTION */
+        /* NUOVA SEZIONE LOGO PERSONALIZZATO */
         .brand-header {
             padding: 40px 20px 10px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .tps-logo-box {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, var(--accent), #0066ff);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 26px;
-            color: #000;
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
+            align-items: center;
         }
 
-        .brand-name {
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 5px;
-            color: white;
+        .custom-logo {
+            max-width: 180px; /* Regola la larghezza massima del tuo logo */
+            height: auto;     /* Mantiene le proporzioni */
+            max-height: 80px; /* Regola l'altezza massima */
+            object-fit: contain;
         }
 
         /* SALDO */
@@ -65,13 +51,12 @@
         /* CONTENT AREA */
         .main { flex: 1; padding: 0 25px; display: flex; flex-direction: column; align-items: center; }
 
-        /* TESSERA CON COLORE #1e2748 */
+        /* TESSERA BLUE #1e2748 */
         .card {
             width: 100%;
             max-width: 340px;
             aspect-ratio: 1.58 / 1;
             background-color: var(--card-color);
-            /* Sfumatura leggera per dare profondità al blu */
             background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent);
             border-radius: 20px;
             padding: 25px;
@@ -94,7 +79,7 @@
         .card-number { font-size: 18px; letter-spacing: 3px; color: #fff; font-family: monospace; z-index: 2; }
         
         .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; z-index: 2; }
-        .card-name-txt { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+        .card-name-txt { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #fff; }
 
         /* TASTI AZIONE */
         .actions { display: flex; gap: 50px; margin-top: 50px; }
@@ -136,10 +121,7 @@
 <body>
 
     <div class="brand-header">
-        <div class="tps-logo-box">
-            <i class="fa-solid fa-shield-halved"></i>
-        </div>
-        <div class="brand-name">TPS BANK</div>
+        <img src="logotps.png" alt="Logo" class="custom-logo">
     </div>
 
     <div class="balance-section">
