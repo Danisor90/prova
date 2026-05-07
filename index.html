@@ -1,51 +1,145 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Leo Bank</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fintech App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: linear-gradient(135deg, #1a1f3c 0%, #0d0e14 100%);
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+        }
 
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; /* Evita lo scroll fastidioso su mobile */
+        }
+
+        /* Header con Saldo */
+        header {
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .saldo-label { color: var(--text-dim); font-size: 14px; }
+        .saldo-amount { font-size: 42px; font-weight: bold; margin: 10px 0; }
+
+        /* La Carta (stile quella in foto) */
+        .card-container {
+            padding: 0 20px;
+        }
+
+        .credit-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 25px;
+            aspect-ratio: 1.58 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-number { font-size: 20px; letter-spacing: 3px; margin-top: 40px; }
+        .card-name { text-transform: uppercase; font-size: 14px; color: var(--text-dim); }
+
+        /* Bottoni Azione */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .blue { border-color: var(--accent-blue); color: var(--accent-blue); }
+        .purple { border-color: var(--accent-purple); color: var(--accent-purple); }
+
+        /* Bottom Nav */
+        nav {
+            margin-top: auto;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #222;
+        }
+
+        .nav-item { color: var(--text-dim); text-align: center; font-size: 10px; text-decoration: none; }
+        .nav-item i { display: block; font-size: 20px; margin-bottom: 5px; }
+        .nav-item.active { color: #f1c40f; }
+
+    </style>
+</head>
 <body>
 
-<div class="app">
+    <header>
+        <div class="saldo-label">Saldo totale</div>
+        <div class="saldo-amount">€ 0.00</div>
+        <div class="saldo-label"><i class="far fa-eye"></i> Mostra saldo</div>
+    </header>
 
-  <div class="topbar">
-    <div class="menu">☰</div>
-    <div class="logo">LEO BANK</div>
-    <div class="profile">👤</div>
-  </div>
-
-  <div class="balance">
-    <p>Saldo totale</p>
-    <h1>€ 12.450,80</h1>
-    <span>Conto principale</span>
-  </div>
-
-  <div class="card">
-    <div class="card-top">
-      <div class="chip"></div>
-      <div class="card-logo"></div>
+    <div class="card-container">
+        <div class="credit-card">
+            <div style="text-align: right;"><i class="fas fa-layer-group fa-2xl"></i></div>
+            <div class="card-number">4536 4777 7110 1055</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div class="card-name">Leonardo Soru</div>
+                <div style="font-size: 12px;">06/50</div>
+            </div>
+        </div>
     </div>
 
-    <div class="card-number">4536 47•• •••• 1055</div>
-    <div class="card-name">LEONARDO SORU</div>
-
-    <div class="card-footer">
-      <span>DEBIT CARD</span>
-      <span>06/50</span>
+    <div class="actions">
+        <div class="action-btn">
+            <div class="icon-circle blue"><i class="fas fa-plus"></i></div>
+            <span>Boost</span>
+        </div>
+        <div class="action-btn">
+            <div class="icon-circle purple"><i class="fas fa-minus"></i></div>
+            <span>Deduct</span>
+        </div>
     </div>
-  </div>
 
-  <div class="actions">
-    <div class="action">➕ Invia</div>
-    <div class="action">⬇ Ricevi</div>
-    <div class="action">💳 Carte</div>
-    <div class="action">📊 Movimenti</div>
-  </div>
-
-</div>
+    <nav>
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i>Home</a>
+        <a href="#" class="nav-item"><i class="fas fa-chart-bar"></i>Analytics</a>
+        <a href="#" class="nav-item"><i class="fas fa-bell"></i>Notifiche</a>
+        <a href="#" class="nav-item"><i class="fas fa-cog"></i>Impostazioni</a>
+    </nav>
 
 </body>
 </html>
