@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TPS Bank</title>
+    <title>TPS BANK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg: #000000;
-            --card-gradient: linear-gradient(145deg, #1e293b 0%, #020617 100%);
+            --card-color: #1e2748; /* Il tuo nuovo colore */
             --accent: #00f2ff;
-            --text-muted: #64748b;
+            --text-dim: #666;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -18,125 +18,167 @@
         body {
             background-color: var(--bg);
             color: white;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* Header Saldo */
-        .header { padding: 60px 20px 40px; text-align: center; }
-        .label { color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; }
-        .balance { font-size: 48px; font-weight: 700; margin: 10px 0; letter-spacing: -1px; }
+        /* BRAND & LOGO SECTION */
+        .brand-header {
+            padding: 40px 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
 
-        .container { flex: 1; padding: 0 20px; }
+        .tps-logo-box {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--accent), #0066ff);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
+        }
 
-        /* LA CARTA TPS BANK */
+        .brand-name {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: white;
+        }
+
+        /* SALDO */
+        .balance-section {
+            padding: 20px;
+            text-align: center;
+        }
+        .label { color: var(--text-dim); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        .balance { font-size: 46px; font-weight: 700; margin-top: 5px; }
+
+        /* CONTENT AREA */
+        .main { flex: 1; padding: 0 25px; display: flex; flex-direction: column; align-items: center; }
+
+        /* TESSERA CON COLORE #1e2748 */
         .card {
             width: 100%;
-            max-width: 350px;
+            max-width: 340px;
             aspect-ratio: 1.58 / 1;
-            background: var(--card-gradient);
-            border-radius: 24px;
+            background-color: var(--card-color);
+            /* Sfumatura leggera per dare profondità al blu */
+            background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent);
+            border-radius: 20px;
             padding: 25px;
-            margin: 0 auto;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             overflow: hidden;
         }
 
-        /* Logo TPS Stilizzato */
-        .logo-container { display: flex; align-items: center; gap: 10px; z-index: 2; }
+        .card-chip {
+            width: 45px;
+            height: 32px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 5px;
+        }
+
+        .card-number { font-size: 18px; letter-spacing: 3px; color: #fff; font-family: monospace; z-index: 2; }
         
-        .tps-logo {
-            width: 32px; height: 32px;
-            background: var(--accent);
-            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 900; color: black; font-size: 14px;
-        }
+        .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; z-index: 2; }
+        .card-name-txt { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
 
-        .bank-name { font-weight: 600; font-size: 18px; letter-spacing: 1px; }
+        /* TASTI AZIONE */
+        .actions { display: flex; gap: 50px; margin-top: 50px; }
+        .btn-container { text-align: center; cursor: pointer; color: inherit; }
+        
+        .btn-disabled { opacity: 0.3; cursor: default; }
 
-        /* Riflesso sulla carta */
-        .card::after {
-            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .card-number { font-size: 20px; letter-spacing: 3px; font-family: monospace; color: #ffffff; z-index: 2; }
-        .card-holder { font-size: 14px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
-
-        /* Bottoni Rapidi */
-        .actions { display: flex; justify-content: center; gap: 50px; margin-top: 50px; }
-        .btn { text-align: center; background: none; border: none; cursor: pointer; color: white; }
-        .btn-icon {
-            width: 60px; height: 60px; border-radius: 20px;
-            background: #0f172a; border: 1px solid #1e293b;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; color: var(--accent); margin-bottom: 10px;
+        .circle-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #080808;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 10px;
             transition: 0.2s;
         }
-        .btn:active .btn-icon { transform: scale(0.9); background: #1e293b; }
 
-        /* Navigazione Inferiore */
-        nav {
-            margin-top: auto; background: #020617;
-            display: flex; justify-content: space-around;
-            padding: 15px 0 40px; border-top: 1px solid #0f172a;
+        .accent-color { color: var(--accent); border-color: rgba(0, 242, 255, 0.2); }
+        .btn-container:active:not(.btn-disabled) .circle-icon { transform: scale(0.9); background: #111; }
+
+        /* BOTTOM NAV */
+        .nav-bar {
+            margin-top: auto;
+            background: #000;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0 35px;
+            border-top: 1px solid #111;
         }
-        nav i { font-size: 22px; color: #334155; transition: 0.3s; }
-        nav i.active { color: var(--accent); }
+        .nav-link { color: #333; text-decoration: none; font-size: 22px; }
+        .active-link { color: var(--accent); }
+
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <p class="label">Total Balance</p>
-        <h1 class="balance" id="saldo">€ 1000,00</h1>
-    </header>
+    <div class="brand-header">
+        <div class="tps-logo-box">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="brand-name">TPS BANK</div>
+    </div>
 
-    <div class="container">
+    <div class="balance-section">
+        <p class="label">Total Balance</p>
+        <h1 class="balance">€ 1.000,00</h1>
+    </div>
+
+    <main class="main">
         <div class="card">
-            <div class="logo-container">
-                <div class="tps-logo">TPS</div>
-                <span class="bank-name">BANK</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div class="card-chip"></div>
+                <i class="fa-solid fa-wifi" style="transform: rotate(90deg); color: rgba(255,255,255,0.2);"></i>
             </div>
 
-            <div class="card-number">**** **** **** 1001</div>
+            <div class="card-number">•••• •••• •••• 1002</div>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; z-index: 2;">
-                <div>
-                    <p style="font-size: 9px; color: var(--text-muted); margin-bottom: 4px;">CARD HOLDER</p>
-                    <p class="card-holder">DANILO SORU</p>
-                </div>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" style="height: 25px; opacity: 0.8;">
+            <div class="card-bottom">
+                <p class="card-name-txt">TANIA CERRONE</p>
+                <p style="font-size: 11px; font-weight: bold; color: white;">06/50</p>
             </div>
         </div>
 
         <div class="actions">
-            <div class="btn-box" onclick="location.reload()">
-                <div class="icon-circle boost-color"><i class="fa-solid fa-arrows-rotate"></i></div>
-                <p class="label">Boost</p>
+            <div class="btn-container" onclick="location.reload()">
+                <div class="circle-icon accent-color"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <p class="label" style="font-size: 11px;">Boost</p>
             </div>
 
-            <div class="btn-box btn-disabled">
-                <div class="icon-circle"><i class="fa-solid fa-paper-plane"></i></div>
-                <p class="label">Send</p>
+            <div class="btn-container btn-disabled">
+                <div class="circle-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                <p class="label" style="font-size: 11px;">Send</p>
             </div>
         </div>
     </main>
 
-    <nav class="nav">
-        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i></a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-chart-line"></i></a>
-        <a href="#" class="nav-item"><i class="fa-solid fa-user"></i></a>
+    <nav class="nav-bar">
+        <a href="#" class="nav-link active-link"><i class="fa-solid fa-house"></i></a>
+        <a href="#" class="nav-link"><i class="fa-solid fa-chart-simple"></i></a>
+        <a href="#" class="nav-link"><i class="fa-solid fa-user"></i></a>
     </nav>
 
 </body>
